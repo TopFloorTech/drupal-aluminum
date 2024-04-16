@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Provides some common configurable blocks for use in the Spacelift theme
+ * Provides some common configurable blocks for use in the Spacelift theme.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;

@@ -1,6 +1,6 @@
 name: Aluminum Core
 type: module
 description: "Provides a pluggable set of building blocks for composing a website."
-version: 8.x-1.0-alpha1
-core: 8.x
+version: 8.x-1.0-alpha2
+core_version_requirement: ^8.8 || ^9 || ^10
 package: Aluminum

@@ -1,22 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BMcClure
- * Date: 9/10/2016
- * Time: 5:57 PM
- */
 
 namespace Drupal\aluminum_vault\Form;
-
 
 use Drupal\aluminum_vault\VaultConfig;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Configure settings for Aluminum
+ * Configure settings for Aluminum.
  */
 class AluminumVaultSettingsForm extends ConfigFormBase {
+
   /**
    * {@inheritdoc}
    */
@@ -78,4 +72,5 @@ class AluminumVaultSettingsForm extends ConfigFormBase {
 
     parent::submitForm($form, $form_state);
   }
+
 }

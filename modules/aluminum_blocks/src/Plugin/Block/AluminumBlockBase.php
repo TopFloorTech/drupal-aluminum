@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BMcClure
- * Date: 9/9/2016
- * Time: 2:44 PM
- */
 
 namespace Drupal\aluminum_blocks\Plugin\Block;
 
@@ -12,49 +6,69 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * Base class for AluminumBlocks.
+ *
+ * Created by PhpStorm.
+ * User: BMcClure.
+ * Date: 9/9/2016.
+ * Time: 2:44 PM.
+ */
 abstract class AluminumBlockBase extends BlockBase implements BlockPluginInterface {
+
   /**
    * Optionally override this to manually set an aluminum_id for this block.
    *
    * @var string
    */
-  var $aluminum_id = '';
+  protected $aluminumId = '';
 
   /**
-   * Override to specify configuration options
+   * Override to specify configuration options.
    *
    * @return array
+   *   An array of options.
    */
   public function getOptions() {
     return [];
   }
 
-  public function getAluminumId() {
-    if (!empty($this->aluminum_id)) {
-      return $this->aluminum_id;
+  /**
+   * Get the aluminum id.
+   *
+   * @return string
+   *   The aluminum id.
+   */
+  public function getAluminumId(): string {
+    if (!empty($this->$aluminumId)) {
+      return $this->$aluminumId;
     }
 
     return strtolower(preg_replace([
       '/([a-z\d])([A-Z])/',
-      '/([^_])([A-Z][a-z])/'
+      '/([^_])([A-Z][a-z])/',
     ], '$1_$2', self::class));
   }
 
   /**
    * Gets the current value for an option returned by getOptions()
    *
-   * @param $option_name
+   * @param string $option_name
+   *   The option name.
    * @param bool $replace_tokens
+   *   Whether or not to replace tokens.
+   *
    * @return string
+   *   The option value.
    */
-  public function getOptionValue($option_name, $replace_tokens = FALSE) {
+  public function getOptionValue(string $option_name, bool $replace_tokens = FALSE): string {
     $config = $this->getConfiguration();
 
     $options = $this->getOptions();
 
-    $default = isset($options[$option_name]['#default_value']) ? $options[$option_name]['#default_value'] : '';
+    $default = $options[$option_name]['#default_value'] ?? '';
 
-    $value = isset($config[$option_name]) ? $config[$option_name] : $default;
+    $value = $config[$option_name] ?? $default;
 
     if ($replace_tokens) {
       $value = \Drupal::token()->replace($value);
@@ -74,12 +88,12 @@ abstract class AluminumBlockBase extends BlockBase implements BlockPluginInterfa
     foreach ($this->getOptions() as $option_name => $option) {
       $option += [
         '#type' => 'textfield',
-        '#title' => $this->t(ucfirst(str_replace('_', ' ', $option_name))),
+        '#title' => ucfirst(str_replace('_', ' ', $option_name)),
       ];
 
-      $default = isset($option['#default_value']) ? $option['#default_value'] : '';
+      $default = $option['#default_value'] ?? '';
 
-      $option['#default_value'] = isset($config[$option_name]) ? $config[$option_name] : $default;
+      $option['#default_value'] = $config[$option_name] ?? $default;
 
       $form[$option_name] = $option;
     }
@@ -110,4 +124,5 @@ abstract class AluminumBlockBase extends BlockBase implements BlockPluginInterfa
 
     return $values;
   }
+
 }

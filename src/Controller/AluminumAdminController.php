@@ -1,17 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BMcClure
- * Date: 9/10/2016
- * Time: 10:29 PM
- */
 
 namespace Drupal\aluminum\Controller;
 
-
 use Drupal\Core\Controller\ControllerBase;
 
+/**
+ * Provides an Aluminum admin controller.
+ */
 class AluminumAdminController extends ControllerBase {
+
   /**
    * {@inheritdoc}
    */
@@ -23,4 +20,5 @@ class AluminumAdminController extends ControllerBase {
 
     return $build;
   }
+
 }

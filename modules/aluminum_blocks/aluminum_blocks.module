@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Provides some common configurable blocks for use in the Spacelift theme
+ * Provides some common configurable blocks for use in the Spacelift theme.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -17,6 +17,9 @@ function aluminum_blocks_help($route_name, RouteMatchInterface $route_match) {
   }
 }
 
+/**
+ * Implements hook_theme().
+ */
 function aluminum_blocks_theme($existing, $type, $theme, $path) {
   return [
     'aluminum_follow_list' => [

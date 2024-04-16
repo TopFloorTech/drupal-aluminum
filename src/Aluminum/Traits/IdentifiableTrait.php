@@ -1,17 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BMcClure
- * Date: 10/8/2016
- * Time: 8:22 PM
- */
 
 namespace Drupal\aluminum\Aluminum\Traits;
 
-
 use Drupal\aluminum\Aluminum\Exception\AluminumException;
 
+/**
+ * Provides an identifiable trait.
+ */
 trait IdentifiableTrait {
+
+  /**
+   * Get id.
+   *
+   * @return mixed
+   *   If there is an id, it is returned.
+   *
+   * @throws \Drupal\aluminum\Aluminum\Exception\AluminumException
+   */
   public function getId() {
     if (!isset($this->id)) {
       throw new AluminumException("No ID set for this object.");
@@ -20,20 +25,40 @@ trait IdentifiableTrait {
     return $this->id;
   }
 
-  public function getName($translate = TRUE) {
+  /**
+   * Get name.
+   *
+   * @param bool $translate
+   *   Whether to translate name.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup|string
+   *   If translated, return the translated name, else, string name.
+   *
+   * @throws \Drupal\aluminum\Aluminum\Exception\AluminumException
+   */
+  public function getName(bool $translate = TRUE) {
     $name = (!empty($this->name)) ? $this->name : $this->generateName();
 
     if ($translate) {
       if (method_exists($this, 't')) {
-        $name = $this->t($name);
-      } else {
-        $name = t($name);
+        $name = $this->t('%name', ['%name' => $name]);
+      }
+      else {
+        $name = t('%name', ['%name' => $name]);
       }
     }
 
     return $name;
   }
 
+  /**
+   * Generate name.
+   *
+   * @return string
+   *   The name.
+   *
+   * @throws \Drupal\aluminum\Aluminum\Exception\AluminumException
+   */
   public function generateName() {
     $id = $this->getId();
 
@@ -46,4 +71,5 @@ trait IdentifiableTrait {
 
     return $id;
   }
+
 }
