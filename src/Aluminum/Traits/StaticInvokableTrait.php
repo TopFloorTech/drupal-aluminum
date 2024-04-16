@@ -1,18 +1,31 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BMcClure
- * Date: 10/8/2016
- * Time: 9:35 PM
- */
 
 namespace Drupal\aluminum\Aluminum\Traits;
 
-
+/**
+ * Provides a static invokable trait.
+ */
 trait StaticInvokableTrait {
+
+  /**
+   * The hook data.
+   *
+   * @var array
+   */
   protected static $hookData = [];
 
-  protected static function invokeHook($hookName, $defaultItem = []) {
+  /**
+   * Invoke hook.
+   *
+   * @param string $hookName
+   *   The hook name.
+   * @param array $defaultItem
+   *   The default item.
+   *
+   * @return array|mixed
+   *   Some data.
+   */
+  protected static function invokeHook(string $hookName, array $defaultItem = []) {
     if (!isset(self::$hookData[$hookName])) {
       $moduleHandler = \Drupal::moduleHandler();
 
@@ -32,4 +45,5 @@ trait StaticInvokableTrait {
 
     return $data;
   }
+
 }

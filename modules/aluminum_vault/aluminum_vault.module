@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Provides a common configuration interface for Aluminum
+ * Provides a common configuration interface for Aluminum.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -17,6 +17,12 @@ function aluminum_vault_help($route_name, RouteMatchInterface $route_match) {
   }
 }
 
+/**
+ * Aluminum vault social networks.
+ *
+ * @return string[]
+ *   An array of social network names.
+ */
 function aluminum_vault_social_networks() {
   return [
     'facebook' => 'Facebook',
@@ -27,6 +33,12 @@ function aluminum_vault_social_networks() {
   ];
 }
 
+/**
+ * Aluminum vault phone numbers.
+ *
+ * @return array[]
+ *   An array of phone numbers.
+ */
 function aluminum_vault_phone_numbers() {
   return [
     'phone_number_toll_free' => [
@@ -47,7 +59,16 @@ function aluminum_vault_phone_numbers() {
   ];
 }
 
-function aluminum_vault_config($group = null) {
+/**
+ * Aluminum vault config.
+ *
+ * @param string|null $group
+ *   The group.
+ *
+ * @return array|mixed|null
+ *   An array or something.
+ */
+function aluminum_vault_config($group = NULL) {
   $config_name = 'aluminum_vault';
 
   $config = \Drupal::config('aluminum_vault.settings');
@@ -90,7 +111,7 @@ function aluminum_vault_aluminum_vault_groups() {
 function aluminum_vault_aluminum_vault_config() {
   $config = [];
 
-  // General config
+  // General config.
   $config['base_icon_class'] = [
     '#type' => 'textfield',
     '#title' => t('Base icon class'),
@@ -98,7 +119,7 @@ function aluminum_vault_aluminum_vault_config() {
     '#vault_group' => 'general',
   ];
 
-  // Contact info
+  // Contact info.
   foreach (aluminum_vault_phone_numbers() as $id => $info) {
     $config[$id] = [
       '#type' => 'tel',
@@ -108,19 +129,19 @@ function aluminum_vault_aluminum_vault_config() {
     ];
   }
 
-  // Social network settings
+  // Social network settings.
   foreach (aluminum_vault_social_networks() as $id => $name) {
     $config[$id . '_icon_class'] = [
       '#type' => 'textfield',
-      '#title' => t($name . ' icon class'),
-      '#description' => t('This icon class will be used to represent ' . $name . '.'),
+      '#title' => t('%name icon class', ['%name' => $name]),
+      '#description' => t('This icon class will be used to represent %name.', ['%name' => $name]),
       '#vault_group' => $id,
     ];
 
     $config[$id . '_page_url'] = [
       '#type' => 'textfield',
-      '#title' => t($name . ' page URL'),
-      '#description' => t('The URL used when linking to this site\'s ' . $name . ' page.'),
+      '#title' => t('%name page URL', ['%name' => $name]),
+      '#description' => t('The URL used when linking to this site\'s %name page.', ['%name' => $name]),
       '#vault_group' => $id,
     ];
   }

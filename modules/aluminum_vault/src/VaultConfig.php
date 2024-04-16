@@ -1,18 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BMcClure
- * Date: 9/10/2016
- * Time: 10:50 PM
- */
 
 namespace Drupal\aluminum_vault;
 
-
-use Drupal\Core\Config\Config;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * Provides vault config.
+ */
 class VaultConfig {
+
   /**
    * Invokes the "aluminum_vault_config" hook and returns all config values
    *
@@ -29,9 +25,10 @@ class VaultConfig {
   }
 
   /**
-   * Invokes the "aluminum_vault_groups" hook and returns all config groups
+   * Invokes the "aluminum_vault_groups" hook and returns all config groups.
    *
    * @return array
+   *   An array of prepared data values.
    */
   public function getVaultGroups() {
     $vault_groups = \Drupal::moduleHandler()->invokeAll('aluminum_vault_groups');
@@ -45,28 +42,37 @@ class VaultConfig {
   }
 
   /**
-   * Standardizes some defaults for both config options and groups
+   * Standardizes some defaults for both config options and groups.
    *
-   * @param $data
+   * @param array $data
+   *   The data array.
    * @param array $defaults
+   *   The defaults.
+   *
    * @return mixed
+   *   An array of data items.
    */
-  protected function prepareVaultData($data, $defaults = []) {
+  protected function prepareVaultData(array $data, array $defaults = []) {
     foreach ($data as $data_id => $data_array) {
       $data[$data_id] += $defaults + [
-          '#vault_id' => $data_id,
-          '#title' => $this->getTitleFromId($data_id),
-          '#weight' => 0,
-        ];
+        '#vault_id' => $data_id,
+        '#title' => $this->getTitleFromId($data_id),
+        '#weight' => 0,
+      ];
     }
-
-    /*usort($data, function ($a, $b) {
-      return $a['weight'] - $b['weight'];
-    });*/
 
     return $data;
   }
 
+  /**
+   * Get title from id.
+   *
+   * @param string $id
+   *   The id.
+   *
+   * @return string
+   *   The title.
+   */
   protected function getTitleFromId($id) {
     return ucfirst(str_replace('_', ' ', $id));
   }
@@ -76,14 +82,18 @@ class VaultConfig {
 
     if (!is_null($form_state) && $form_state->hasValue($option['#vault_id'])) {
       $value = $form_state->getValue($option['#vault_id']);
-    } elseif (isset($config[$option['#vault_id']])) {
+    }
+    elseif (isset($config[$option['#vault_id']])) {
       $value = $config[$option['#vault_id']];
-    } elseif (isset($option['#default_value'])) {
+    }
+    elseif (isset($option['#default_value'])) {
       $value = $option['##default_value'];
-    } else {
+    }
+    else {
       $value = '';
     }
 
     return $value;
   }
+
 }

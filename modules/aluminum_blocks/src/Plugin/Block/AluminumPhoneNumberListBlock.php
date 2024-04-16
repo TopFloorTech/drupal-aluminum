@@ -1,17 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BMcClure
- * Date: 9/9/2016
- * Time: 2:13 PM
- */
 
 namespace Drupal\aluminum_blocks\Plugin\Block;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 
 /**
- * Provides a 'Phone number list' block
+ * Provides a 'Phone number list' block.
  *
  * @Block(
  *     id = "aluminum_phone_number_list",
@@ -19,6 +11,13 @@ use Drupal\Core\Url;
  * )
  */
 class AluminumPhoneNumberListBlock extends AluminumBlockBase {
+
+  /**
+   * Get phone number options.
+   *
+   * @return array
+   *   An array of phone number options.
+   */
   protected function getPhoneNumberOptions() {
     $options = [];
 
@@ -53,6 +52,12 @@ class AluminumPhoneNumberListBlock extends AluminumBlockBase {
     return $options;
   }
 
+  /**
+   * Get list.
+   *
+   * @return array
+   *   An array of list items.
+   */
   protected function getList() {
     $enabled = array_keys(array_filter($this->getOptionValue('enabled_phone_numbers')));
     $phone_numbers = aluminum_vault_phone_numbers();
@@ -85,4 +90,5 @@ class AluminumPhoneNumberListBlock extends AluminumBlockBase {
       '#list' => $this->getList(),
     ];
   }
+
 }

@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BMcClure
- * Date: 9/9/2016
- * Time: 2:13 PM
- */
 
 namespace Drupal\aluminum_blocks\Plugin\Block;
 
 /**
- * Provides a 'Follow links' block
+ * Provides a 'Follow links' block.
  *
  * @Block(
  *     id = "aluminum_follow",
@@ -17,6 +11,7 @@ namespace Drupal\aluminum_blocks\Plugin\Block;
  * )
  */
 class AluminumFollowBlock extends AluminumBlockBase {
+
   /**
    * {@inheritdoc}
    */
@@ -41,15 +36,15 @@ class AluminumFollowBlock extends AluminumBlockBase {
     foreach (aluminum_vault_social_networks() as $id => $name) {
       $options[$id . '_enabled'] = [
         '#type' => 'checkbox',
-        '#title' => $this->t($name . ' enabled'),
-        '#description' => $this->t($name . ' will be shown if this box is checked.'),
+        '#title' => $this->t('%name enabled', ['%name' => $name]),
+        '#description' => $this->t('%name will be shown if this box is checked.', ['%name' => $name]),
         '#default_value' => TRUE,
       ];
 
       $options[$id . '_weight'] = [
         '#type' => 'textfield',
-        '#title' => $this->t($name . ' weight'),
-        '#description' => $this->t('This integer defines the weight of ' . $name . ' in relation to other links.'),
+        '#title' => $this->t('%name weight', ['%name' => $name]),
+        '#description' => $this->t('This integer defines the weight of %name in relation to other links.', ['%name' => $name]),
         '#default_value' => $weight,
       ];
 
@@ -59,6 +54,15 @@ class AluminumFollowBlock extends AluminumBlockBase {
     return $options;
   }
 
+  /**
+   * Icon class.
+   *
+   * @param string $id
+   *   The id.
+   *
+   * @return mixed|string
+   *   The icon class.
+   */
   protected function iconClass($id) {
     $config = aluminum_vault_config();
 
@@ -71,6 +75,12 @@ class AluminumFollowBlock extends AluminumBlockBase {
     return $class;
   }
 
+  /**
+   * Get social networks.
+   *
+   * @return array
+   *   An array of social networks, keyed by id.
+   */
   protected function getSocialNetworks() {
     $config = aluminum_vault_config();
 
@@ -84,7 +94,7 @@ class AluminumFollowBlock extends AluminumBlockBase {
           'name' => $name,
           'weight' => $this->getOptionValue($id . '_weight'),
           'url' => $config[$id][$id . '_page_url'],
-          'icon_class' => $this->iconClass($id)
+          'icon_class' => $this->iconClass($id),
         ];
       }
     }
@@ -110,4 +120,5 @@ class AluminumFollowBlock extends AluminumBlockBase {
       '#link_target' => $this->getOptionValue('link_target', '_blank'),
     ];
   }
+
 }

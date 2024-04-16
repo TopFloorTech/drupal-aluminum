@@ -1,17 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BMcClure
- * Date: 9/9/2016
- * Time: 2:13 PM
- */
 
 namespace Drupal\aluminum_blocks\Plugin\Block;
-use Drupal\Core\Link;
+
 use Drupal\Core\Url;
 
 /**
- * Provides a 'Phone number' block
+ * Provides a 'Phone number' block.
  *
  * @Block(
  *     id = "aluminum_phone_number",
@@ -19,6 +13,13 @@ use Drupal\Core\Url;
  * )
  */
 class AluminumPhoneNumberBlock extends AluminumBlockBase {
+
+  /**
+   * Get the phone number options.
+   *
+   * @return array
+   *   An array of phone number options.
+   */
   protected function getPhoneNumberOptions() {
     $options = [];
 
@@ -53,9 +54,10 @@ class AluminumPhoneNumberBlock extends AluminumBlockBase {
     $url = Url::fromUri('tel:+1 ' . $phone_number);
 
     return [
-        '#theme' => 'aluminum_phone_number',
-        '#phone_number' => $phone_number,
-        '#url' => $url,
+      '#theme' => 'aluminum_phone_number',
+      '#phone_number' => $phone_number,
+      '#url' => $url,
     ];
   }
+
 }

@@ -1,10 +1,10 @@
 name: Aluminum Blocks
 type: module
 description: 'Creates some basic user-configurable blocks that are generally useful for most sites.'
-version: 8.x-1.0-alpha1
-core: 8.x
+version: 8.x-1.0-alpha2
+core_version_requirement: ^8.8 || ^9 || ^10
 package: Aluminum
 dependencies:
-  - aluminum
-  - aluminum_vault
-  - block
+  - aluminum:aluminum
+  - aluminum_vault:aluminum_vault
+  - block:block

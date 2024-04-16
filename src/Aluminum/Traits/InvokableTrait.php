@@ -1,18 +1,31 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BMcClure
- * Date: 10/8/2016
- * Time: 9:35 PM
- */
 
 namespace Drupal\aluminum\Aluminum\Traits;
 
-
+/**
+ * Provides an invokable trait.
+ */
 trait InvokableTrait {
+
+  /**
+   * The hook data.
+   *
+   * @var array
+   */
   protected $hookData = [];
 
-  protected function invokeHook($hookName, $defaultItem = []) {
+  /**
+   * Invoke hook.
+   *
+   * @param string $hookName
+   *   The hook name.
+   * @param array $defaultItem
+   *   The default item.
+   *
+   * @return array|mixed
+   *   Whatever this returns.
+   */
+  protected function invokeHook($hookName, array $defaultItem = []) {
     if (!isset($this->hookData[$hookName])) {
       $moduleHandler = \Drupal::moduleHandler();
 
@@ -32,4 +45,5 @@ trait InvokableTrait {
 
     return $data;
   }
+
 }
