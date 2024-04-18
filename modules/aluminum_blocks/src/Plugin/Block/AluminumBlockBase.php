@@ -40,8 +40,8 @@ abstract class AluminumBlockBase extends BlockBase implements BlockPluginInterfa
    *   The aluminum id.
    */
   public function getAluminumId(): string {
-    if (!empty($this->$aluminumId)) {
-      return $this->$aluminumId;
+    if (!empty($this->aluminumId)) {
+      return $this->aluminumId;
     }
 
     return strtolower(preg_replace([
